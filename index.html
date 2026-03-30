@@ -343,6 +343,54 @@
         .timeline-item:nth-child(8) { animation-delay: 0.8s; }
         .timeline-item:nth-child(9) { animation-delay: 0.9s; }
 
+        /* Drive Button */
+        .btn-drive {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 1.5rem;
+            padding: 14px 32px;
+            background: var(--bg);
+            color: var(--brand);
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 
+                6px 6px 12px var(--shadow-dark), 
+                -6px -6px 12px var(--shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .btn-drive:hover {
+            box-shadow: 
+                inset 4px 4px 8px var(--shadow-dark), 
+                inset -4px -4px 8px var(--shadow-light);
+            transform: translateY(2px);
+            color: var(--brand-light);
+        }
+
+        .btn-drive i {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        .drive-details {
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .drive-details strong {
+            color: var(--text-primary);
+        }
+
         /* Responsive Design */
         @media screen and (max-width: 990px) {
             .timeline-item { padding: 0 30px; }
@@ -425,6 +473,13 @@
     <header class="header">
         <h1>Roadmap <span>Pembina Desa Cantik</span></h1>
         <p>Panduan komprehensif persiapan, dokumen, dan <i>output</i> lapangan untuk Pembina Desa Cantik tingkat BPS Kabupaten/Kota tahun 2026.</p>
+        
+        <a href="https://drive.google.com/drive/folders/13MJneBK-zSx-XSDrjOFe3up_fJ3didiz?usp=sharing" target="_blank" class="btn-drive">
+            <i class="ph-bold ph-folder-open"></i> Akses Google Drive
+        </a>
+        <div class="drive-details">
+            <strong>Isi Folder Tersedia:</strong> Agenda pembinaan (Notula, Timeline, Kalender), form LKE Penilaian Desa Cantik 2026, Instrumen Identifikasi, serta Materi Pelatihan Resmi.
+        </div>
     </header>
 
     <div class="timeline">
