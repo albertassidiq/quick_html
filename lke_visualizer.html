@@ -463,6 +463,13 @@
                 const f3 = row["Unnamed: 3"];
                 const f4 = row["Unnamed: 4"];
                 const f10 = row["Unnamed: 10"]; // Evidence/Description
+                
+                // Helper to add evidence directly to sub-question scope
+                const addEvidence = (sq, ev) => {
+                    if (ev && sq && !sq.evidences.includes(ev)) {
+                        sq.evidences.push(ev);
+                    }
+                };
 
                 // Deteksi Blok
                 if (typeof f0 === 'string' && f0.toUpperCase().includes("BLOK")) {
@@ -492,8 +499,9 @@
                     
                     // Kalau ada jawaban langsung di baris yg sama? (Jarang, tapi handle saja)
                     if (f3) {
-                         currentSubQ = { label: '', text: f2, options: [], evidence: f10 };
-                         currentSubQ.options.push({ text: f3, score: f4, evidence: f10 });
+                         currentSubQ = { label: '', text: f2, options: [], evidences: [] };
+                         addEvidence(currentSubQ, f10);
+                         currentSubQ.options.push({ text: f3, score: f4 });
                          currentIndicator.subqs.push(currentSubQ);
                     }
                     return;
@@ -501,23 +509,26 @@
 
                 // Deteksi Sub-Pertanyaan / Item
                 if (f1 && f2 && !f3) {
-                    currentSubQ = { label: f1, text: f2, options: [], evidence: f10 };
+                    currentSubQ = { label: f1, text: f2, options: [], evidences: [] };
+                    addEvidence(currentSubQ, f10);
                     if (currentIndicator) currentIndicator.subqs.push(currentSubQ);
                     return;
                 }
 
                 // Handle format khusus dimana f1 kosong, f2 ada (sub pertanyaan lanjutan), f3 ada jawaban
                 if (!f1 && f2 && f3) {
-                     currentSubQ = { label: '', text: f2, options: [], evidence: null };
+                     currentSubQ = { label: '', text: f2, options: [], evidences: [] };
+                     addEvidence(currentSubQ, f10);
                      if (currentIndicator) currentIndicator.subqs.push(currentSubQ);
-                     currentSubQ.options.push({ text: f3, score: f4, evidence: f10 });
+                     currentSubQ.options.push({ text: f3, score: f4 });
                      return;
                 }
                 
                 // Handle subpertanyaan punya label di f1 dan langsung punya jawaban f3
                 if (f1 && f2 && f3) {
-                    currentSubQ = { label: f1, text: f2, options: [], evidence: f10 };
-                    currentSubQ.options.push({ text: f3, score: f4, evidence: f10 });
+                    currentSubQ = { label: f1, text: f2, options: [], evidences: [] };
+                    addEvidence(currentSubQ, f10);
+                    currentSubQ.options.push({ text: f3, score: f4 });
                     if (currentIndicator) currentIndicator.subqs.push(currentSubQ);
                     return;
                 }
@@ -525,14 +536,16 @@
                 // Opsi Jawaban (f3 terisi, f1 dan f2 kosong)
                 if (!f1 && !f2 && f3) {
                     if (currentSubQ) {
-                        currentSubQ.options.push({ text: f3, score: f4, evidence: f10 });
+                        addEvidence(currentSubQ, f10);
+                        currentSubQ.options.push({ text: f3, score: f4 });
                     }
                     return;
                 }
                 
                 // Edge case: Jawaban punya label di f1 (e.g. 1, 2, 3) dan text f2 dan jawaban f3
                 if (f1 && f2 && f3 && currentIndicator) {
-                     let sub = { label: f1, text: f2, options: [{text: f3, score: f4, evidence: f10}], evidence: f10 };
+                     let sub = { label: f1, text: f2, options: [{text: f3, score: f4}], evidences: [] };
+                     addEvidence(sub, f10);
                      currentIndicator.subqs.push(sub);
                      currentSubQ = sub;
                 }
@@ -602,8 +615,10 @@
                             html += `<div class="sub-question">
                                         <div class="sub-question-title">${labelStr} ${sub.text}</div>`;
                             
-                            if (sub.evidence && !sub.options.some(o => o.evidence === sub.evidence)) {
-                                html += `<div class="evidence-box"><i class="ph-fill ph-info"></i> <div>${sub.evidence.replace(/\n/g, '<br>')}</div></div>`;
+                            if (sub.evidences && sub.evidences.length > 0) {
+                                sub.evidences.forEach(ev => {
+                                    html += `<div class="evidence-box"><i class="ph-fill ph-info"></i> <div>${ev.replace(/\n/g, '<br>')}</div></div>`;
+                                });
                             }
 
                             if (sub.options.length > 0) {
@@ -616,13 +631,8 @@
                                     html += `<li class="option-item">
                                                 <div class="option-score ${scoreClass}">${score}</div>
                                                 <div class="option-text">
-                                                    ${opt.text}`;
-                                    
-                                    if (opt.evidence) {
-                                         html += `<div class="evidence-box" style="margin-top: 8px;"><i class="ph-bold ph-file-text"></i> <div>${opt.evidence.replace(/\n/g, '<br>')}</div></div>`;
-                                    }
-
-                                    html += `   </div>
+                                                    ${opt.text}
+                                                </div>
                                              </li>`;
                                 });
                                 html += `</ul>`;
