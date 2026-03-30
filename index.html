@@ -177,7 +177,6 @@
             left: -17px;
         }
 
-        /* Neumorphism + Glassmorphism Hybrid Card */
         .content {
             padding: 2.5rem;
             background: var(--glass-grad);
@@ -191,6 +190,10 @@
                 -10px -10px 20px rgba(255, 255, 255, 0.9),
                 inset 2px 2px 5px rgba(255, 255, 255, 0.6);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Anti-overflow text rules */
+            overflow-wrap: break-word;
+            word-break: break-word;
+            hyphens: auto;
         }
 
         .content:hover {
@@ -346,7 +349,7 @@
             }
             .timeline-item {
                 width: 100%;
-                padding-left: 70px !important;
+                padding-left: 65px !important;
                 padding-right: 15px !important;
                 margin-bottom: 2.5rem;
             }
@@ -365,6 +368,45 @@
                 align-items: flex-start;
                 flex-direction: column;
                 gap: 16px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .timeline-item {
+                padding-left: 50px !important;
+                padding-right: 10px !important;
+            }
+            .timeline::after {
+                left: 20px;
+            }
+            .timeline-item:nth-child(odd)::after,
+            .timeline-item:nth-child(even)::after {
+                left: 3px;
+                width: 20px;
+                height: 20px;
+                top: 28px;
+            }
+            .content {
+                padding: 1.5rem;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .icon-wrapper {
+                min-width: 44px;
+                height: 44px;
+                font-size: 1.5rem;
+                border-radius: 12px;
+            }
+            .content ul li {
+                padding-left: 24px;
+                font-size: 0.95rem;
+            }
+            .content ul li::before {
+                width: 16px;
+                height: 16px;
+                font-size: 0.75rem;
+                top: 5px;
             }
         }
     </style>
