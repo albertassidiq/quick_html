@@ -1,243 +1,489 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timeline & Persiapan Program Desa Cantik 2026</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Roadmap Pembina Desa Cantik 2026</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
-        .timeline-container {
-            position: relative;
+        :root {
+            /* Neumorphic base color */
+            --bg: #E0E5EC;
+            --text-primary: #2D3748;
+            --text-secondary: #4A5568;
+            --brand: #3182CE;
+            --brand-light: #63B3ED;
+            
+            /* Shadows for depth */
+            --shadow-light: #ffffff;
+            --shadow-dark: #a3b1c6;
+            
+            /* Glassmorphism properties */
+            --glass-grad: linear-gradient(135deg, rgba(255,255,255,0.45), rgba(255,255,255,0.1));
+            --glass-border: rgba(255, 255, 255, 0.6);
         }
 
-        .timeline-container::before {
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            /* Add colorful soft blobs for the glass effect to interact with */
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(49, 130, 206, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(236, 72, 153, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(72, 187, 120, 0.08) 0%, transparent 50%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header Styling */
+        .header {
+            text-align: center;
+            padding: 4rem 1.5rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header h1 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin: 0 0 1rem 0;
+            color: var(--text-primary);
+            text-shadow: 3px 3px 6px var(--shadow-light), -2px -2px 5px rgba(163, 177, 198, 0.3);
+            letter-spacing: -0.02em;
+        }
+
+        .header h1 span {
+            background: linear-gradient(135deg, var(--brand), #805AD5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.7;
+            font-weight: 400;
+            text-shadow: 1px 1px 2px var(--shadow-light);
+        }
+
+        /* Timeline Container */
+        .timeline {
+            position: relative;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 6rem;
+        }
+
+        /* Center Line Neumorphic */
+        .timeline::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 1.5rem;
-            height: 100%;
-            width: 4px;
-            background-color: #e5e7eb;
+            width: 8px;
+            background: var(--bg);
+            top: 2rem;
+            bottom: 6rem;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 10px;
+            box-shadow: 
+                inset 2px 2px 5px var(--shadow-dark), 
+                inset -2px -2px 5px var(--shadow-light);
+            z-index: 1;
         }
 
-        @media (min-width: 768px) {
-            .timeline-container::before {
-                left: 50%;
-                transform: translateX(-50%);
+        .timeline-item {
+            padding: 0 50px;
+            position: relative;
+            background: inherit;
+            width: 50%;
+            box-sizing: border-box;
+            margin-bottom: 3.5rem;
+            z-index: 2;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 60px;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 60px;
+        }
+
+        /* Node icon / dot on the timeline */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: var(--bg);
+            border: 5px solid var(--brand-light);
+            top: 25px;
+            border-radius: 50%;
+            z-index: 3;
+            box-shadow: 
+                4px 4px 8px var(--shadow-dark), 
+                -4px -4px 8px var(--shadow-light),
+                inset 2px 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover::after {
+            background-color: var(--brand);
+            border-color: var(--bg);
+        }
+
+        .timeline-item:nth-child(odd)::after {
+            right: -17px;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -17px;
+        }
+
+        /* Neumorphism + Glassmorphism Hybrid Card */
+        .content {
+            padding: 2.5rem;
+            background: var(--glass-grad);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            /* Combine outer neumorphic pushes and inner glass reflections */
+            box-shadow: 
+                10px 10px 20px rgba(163, 177, 198, 0.45), 
+                -10px -10px 20px rgba(255, 255, 255, 0.9),
+                inset 2px 2px 5px rgba(255, 255, 255, 0.6);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .content:hover {
+            transform: translateY(-8px);
+            box-shadow: 
+                15px 15px 30px rgba(163, 177, 198, 0.5), 
+                -15px -15px 30px rgba(255, 255, 255, 1),
+                inset 2px 2px 5px rgba(255, 255, 255, 0.8);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Headings & Icons inside the card */
+        .content h2 {
+            margin: 0 0 1.2rem;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            line-height: 1.3;
+        }
+
+        .icon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            background: var(--bg);
+            /* Inner neumorphic pop for icon */
+            box-shadow: 
+                5px 5px 10px var(--shadow-dark), 
+                -5px -5px 10px var(--shadow-light);
+            color: var(--brand);
+            font-size: 1.8rem;
+        }
+
+        .date {
+            display: inline-block;
+            padding: 8px 18px;
+            background: var(--bg);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--brand);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            /* Inset shadow (engraved) for dates */
+            box-shadow: 
+                inset 3px 3px 6px var(--shadow-dark),
+                inset -3px -3px 6px var(--shadow-light);
+        }
+
+        /* List styling */
+        .content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .content ul li {
+            position: relative;
+            padding-left: 32px;
+            margin-bottom: 14px;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .content ul li:last-child {
+            margin-bottom: 0;
+        }
+
+        .content ul li:hover {
+            color: var(--text-primary);
+        }
+
+        .content ul li::before {
+            content: '\2713';
+            position: absolute;
+            left: 0;
+            color: var(--brand);
+            font-weight: 700;
+            font-size: 0.9rem;
+            background: var(--bg);
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            top: 4px;
+            /* Small extruded button for list bullets */
+            box-shadow: 
+                2px 2px 4px var(--shadow-dark), 
+                -2px -2px 4px var(--shadow-light);
+        }
+
+        .content strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Floating animation on load */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .timeline-item {
+            animation: fadeUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        /* Staggered load delays */
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+        .timeline-item:nth-child(6) { animation-delay: 0.6s; }
+        .timeline-item:nth-child(7) { animation-delay: 0.7s; }
+        .timeline-item:nth-child(8) { animation-delay: 0.8s; }
+        .timeline-item:nth-child(9) { animation-delay: 0.9s; }
+
+        /* Responsive Design */
+        @media screen and (max-width: 990px) {
+            .timeline-item { padding: 0 30px; }
+            .timeline-item:nth-child(odd) { padding-right: 40px; }
+            .timeline-item:nth-child(even) { padding-left: 40px; }
+            .content { padding: 2rem; }
+        }
+
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+                transform: none;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px !important;
+                padding-right: 15px !important;
+                margin-bottom: 2.5rem;
+            }
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            .timeline-item:nth-child(odd)::after,
+            .timeline-item:nth-child(even)::after {
+                left: 14px;
+                right: auto;
+            }
+            .header {
+                padding-top: 3rem;
+            }
+            .content h2 {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 16px;
             }
         }
     </style>
 </head>
+<body>
 
-<body class="bg-gray-50 text-gray-800 font-sans antialiased pb-10">
+    <header class="header">
+        <h1>Roadmap <span>Pembina Desa Cantik</span></h1>
+        <p>Panduan komprehensif persiapan, dokumen, dan <i>output</i> lapangan untuk Pembina Desa Cantik tingkat BPS Kabupaten/Kota tahun 2026.</p>
+    </header>
 
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
-        <div class="text-center mb-12">
-            <h1 class="text-3xl md:text-4xl font-extrabold text-blue-800 tracking-tight">Timeline Program Desa Cantik
-                2026</h1>
-            <p class="text-lg text-gray-500 mt-2">Rincian Dokumen, Instrumen, dan Hasil Kerja - BPS 2172</p>
+    <div class="timeline">
+        <!-- Tahap 1 -->
+        <div class="timeline-item">
+            <div class="content">
+                <span class="date">Minggu ke-1 April 2026</span>
+                <h2>
+                    <div class="icon-wrapper"><i class="ph ph-users-three"></i></div>
+                    Sosialisasi & Pembinaan Aparat
+                </h2>
+                <ul>
+                    <li><strong>SK Penunjukan:</strong> Pastikan adanya Keputusan Kepala Desa/Lurah terkait penunjukan Agen Statistik.</li>
+                    <li><strong>Materi Pembinaan:</strong> Edukasi aparat mengenai Data Tunggal Sosial Ekonomi Nasional (DTSEN) & Sensus Ekonomi 2026.</li>
+                    <li><strong>Dokumentasi:</strong> Kumpulkan undangan, daftar hadir, notulen, dan foto kegiatan.</li>
+                    <li><strong>Input Sistem:</strong> Isi CAWI Laporan Koordinasi dan CAWI Input Identifikasi Kebutuhan Desa.</li>
+                </ul>
+            </div>
         </div>
 
-        <div class="timeline-container space-y-8 md:space-y-12">
-
-            <div class="relative flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 md:pr-12 w-full pl-12 md:pl-0 text-left md:text-right mb-4 md:mb-0">
-                    <h3 class="text-xl font-bold text-blue-700">1. Sosialisasi dan Pembinaan Statistik</h3>
-                    <span
-                        class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mt-1 mb-3 font-semibold">Minggu
-                        ke-1 April 2026</span>
-                    <p class="text-sm text-gray-600 mb-2 font-medium">Fokus pada administrasi kegiatan dan pemetaan
-                        kondisi desa:</p>
-                    <ul class="text-gray-600 text-sm space-y-2">
-                        <li><strong>Dokumentasi Kegiatan:</strong> Undangan, daftar hadir, notulen rapat, dan
-                            dokumentasi berupa foto/video kegiatan sosialisasi.</li>
-                        <li><strong>Materi Pembinaan:</strong> Materi GSBPM, Prinsip SDI,
-                            pengumpulan/pengolahan/analisis data, serta materi sosialisasi DTSEN dan Sensus Ekonomi.
-                        </li>
-                        <li><strong>SK Agen Statistik:</strong> SK dari Kepala Desa/Lurah/Camat terkait penunjukan
-                            Agen/Komunitas Statistik.</li>
-                        <li><strong>Instrumen Identifikasi:</strong> Kuesioner Identifikasi Kondisi dan Potensi
-                            Desa/Kelurahan via wawancara/diskusi.</li>
-                        <li><strong>Input CAWI:</strong> Laporan koordinasi, sosialisasi, dan pencanangan di aplikasi
-                            CAWI Desa Cantik.</li>
-                    </ul>
-                </div>
-                <div
-                    class="absolute left-0 md:left-1/2 w-10 h-10 bg-blue-600 rounded-full border-4 border-white transform md:-translate-x-1/2 flex items-center justify-center text-white font-bold shadow-md z-10">
-                    1</div>
-                <div class="md:w-1/2 md:pl-12 w-full pl-12 md:pl-0 hidden md:block"></div>
+        <!-- Tahap 2 -->
+        <div class="timeline-item">
+            <div class="content">
+                <span class="date">Minggu ke-2 Apr – Minggu ke-4 Jul 2026</span>
+                <h2>
+                    <div class="icon-wrapper"><i class="ph ph-chalkboard-teacher"></i></div>
+                    Pendampingan Statistik
+                </h2>
+                <ul>
+                    <li><strong>Metadata & Standar Data:</strong> Hasilkan naskah rancangan metadata variabel yang dikumpulkan.</li>
+                    <li><strong>Sistem Pengumpulan:</strong> Siapkan SOP pengumpulan data primer/sekunder dan instrumen kuesioner.</li>
+                    <li><strong>Output Data:</strong> Buat rancangan tabel, grafik, maupun kajian/analisis.</li>
+                    <li><strong>Produk Diseminasi:</strong> Hasilkan Infografis, Profil Desa, atau konten data untuk website.</li>
+                    <li><strong>Evaluasi:</strong> Susun laporan hasil evaluasi pendataan di lapangan.</li>
+                </ul>
             </div>
-
-            <div class="relative flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 md:pr-12 w-full pl-12 md:pl-0 hidden md:block"></div>
-                <div
-                    class="absolute left-0 md:left-1/2 w-10 h-10 bg-blue-600 rounded-full border-4 border-white transform md:-translate-x-1/2 flex items-center justify-center text-white font-bold shadow-md z-10">
-                    2</div>
-                <div class="md:w-1/2 md:pl-12 w-full pl-12 md:pl-0 text-left mt-4 md:mt-0">
-                    <h3 class="text-xl font-bold text-blue-700">2. Pendampingan Statistik Desa Cantik</h3>
-                    <span
-                        class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mt-1 mb-3 font-semibold">Minggu
-                        ke-2 April – Minggu ke-4 Juli 2026</span>
-                    <p class="text-sm text-gray-600 mb-2 font-medium">Inti kegiatan pengelolaan data:</p>
-                    <ul class="text-gray-600 text-sm space-y-2">
-                        <li><strong>Rancangan Kegiatan:</strong> Rencana spesifik (waktu, tahapan, metode, output).</li>
-                        <li><strong>Kebutuhan Sumber Daya:</strong> Rincian SDM, RAB, dan infrastruktur.</li>
-                        <li><strong>Instrumen Pengumpulan Data:</strong> Kuesioner/SOP inventarisasi data.</li>
-                        <li><strong>Naskah Standar Data dan Metadata:</strong> Konsep, definisi, dan variabel.</li>
-                        <li><strong>Output Statistik:</strong> Tabel/grafik (min. excel), infografis, publikasi
-                            statistik, profil desa, atau website data.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="relative flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 md:pr-12 w-full pl-12 md:pl-0 text-left md:text-right mb-4 md:mb-0">
-                    <h3 class="text-xl font-bold text-blue-700">3. Monitoring Program Desa Cantik</h3>
-                    <span
-                        class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mt-1 mb-3 font-semibold">Minggu
-                        ke-1 Mei – Minggu ke-4 Juli 2026</span>
-                    <ul class="text-gray-600 text-sm space-y-2">
-                        <li><strong>Bukti Kegiatan Monitoring:</strong> Laporan pertemuan/evaluasi berkala (undangan,
-                            notulensi, daftar hadir offline/online).</li>
-                        <li><strong>Update Instrumen Monev:</strong> Update progres pada CAWI agar terpantau di
-                            Dashboard Monitoring Desa Cantik.</li>
-                    </ul>
-                </div>
-                <div
-                    class="absolute left-0 md:left-1/2 w-10 h-10 bg-blue-600 rounded-full border-4 border-white transform md:-translate-x-1/2 flex items-center justify-center text-white font-bold shadow-md z-10">
-                    3</div>
-                <div class="md:w-1/2 md:pl-12 w-full pl-12 md:pl-0 hidden md:block"></div>
-            </div>
-
-            <div class="relative flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 md:pr-12 w-full pl-12 md:pl-0 hidden md:block"></div>
-                <div
-                    class="absolute left-0 md:left-1/2 w-10 h-10 bg-blue-600 rounded-full border-4 border-white transform md:-translate-x-1/2 flex items-center justify-center text-white font-bold shadow-md z-10">
-                    4</div>
-                <div class="md:w-1/2 md:pl-12 w-full pl-12 md:pl-0 text-left mt-4 md:mt-0">
-                    <h3 class="text-xl font-bold text-blue-700">4. Penyusunan Laporan Desa Cantik</h3>
-                    <span
-                        class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mt-1 mb-3 font-semibold">Minggu
-                        ke-1 Jul – 1 Ags & Okt – Nov 2026</span>
-                    <ul class="text-gray-600 text-sm space-y-2">
-                        <li><strong>Laporan Akhir Desa Cantik:</strong> Disusun menggunakan template resmi BPS RI.</li>
-                        <li><strong>Input CAWI:</strong> Upload laporan ke sistem CAWI Laporan Akhir.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="relative flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 md:pr-12 w-full pl-12 md:pl-0 text-left md:text-right mb-4 md:mb-0">
-                    <h3 class="text-xl font-bold text-blue-700">5. Penilaian Mandiri</h3>
-                    <span
-                        class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mt-1 mb-3 font-semibold">Minggu
-                        ke-1 – ke-2 Agustus 2026</span>
-                    <p class="text-sm text-gray-600 mb-2 font-medium">Melengkapi LKE di CAWI beserta Bukti Dukung:</p>
-                    <ul class="text-gray-600 text-sm space-y-2">
-                        <li><strong>File SK</strong> Tim/Agen Statistik.</li>
-                        <li><strong>File rancangan kegiatan & realisasi</strong> anggaran (kuitansi).</li>
-                        <li><strong>Lampiran output data</strong> (monografi, profil, publikasi, link web).</li>
-                        <li><strong>Bukti dukung publikasi/dukungan desa</strong> terhadap Sensus Ekonomi 2026 (foto di
-                            web/medsos).</li>
-                    </ul>
-                </div>
-                <div
-                    class="absolute left-0 md:left-1/2 w-10 h-10 bg-blue-600 rounded-full border-4 border-white transform md:-translate-x-1/2 flex items-center justify-center text-white font-bold shadow-md z-10">
-                    5</div>
-                <div class="md:w-1/2 md:pl-12 w-full pl-12 md:pl-0 hidden md:block"></div>
-            </div>
-
-            <div class="relative flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 md:pr-12 w-full pl-12 md:pl-0 hidden md:block"></div>
-                <div
-                    class="absolute left-0 md:left-1/2 w-10 h-10 bg-blue-600 rounded-full border-4 border-white transform md:-translate-x-1/2 flex items-center justify-center text-white font-bold shadow-md z-10">
-                    6</div>
-                <div class="md:w-1/2 md:pl-12 w-full pl-12 md:pl-0 text-left mt-4 md:mt-0">
-                    <h3 class="text-xl font-bold text-blue-700">6. Verifikasi di Provinsi</h3>
-                    <span
-                        class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mt-1 mb-3 font-semibold">Minggu
-                        ke-3 Agustus 2026</span>
-                    <p class="text-sm text-gray-600 mb-2 font-medium">Tugas BPS Provinsi:</p>
-                    <ul class="text-gray-600 text-sm space-y-2">
-                        <li><strong>Lembar Kerja Verifikasi:</strong> Evaluasi isian Penilaian Mandiri Kab/Kota & Desa.
-                        </li>
-                        <li><strong>Dokumen Hasil Koreksi & Validasi:</strong> Pemeriksaan bukti, koreksi nilai, dan
-                            validasi peringkat.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="relative flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 md:pr-12 w-full pl-12 md:pl-0 text-left md:text-right mb-4 md:mb-0">
-                    <h3 class="text-xl font-bold text-blue-700">7. Desk Evaluation</h3>
-                    <span
-                        class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mt-1 mb-3 font-semibold">Minggu
-                        ke-4 Agustus 2026</span>
-                    <p class="text-gray-600 text-sm">Tidak perlu dokumen baru. Tim BPS RI mengevaluasi LKE Penilaian
-                        Mandiri dan bukti dukung yang telah diverifikasi Provinsi.</p>
-                </div>
-                <div
-                    class="absolute left-0 md:left-1/2 w-10 h-10 bg-blue-600 rounded-full border-4 border-white transform md:-translate-x-1/2 flex items-center justify-center text-white font-bold shadow-md z-10">
-                    7</div>
-                <div class="md:w-1/2 md:pl-12 w-full pl-12 md:pl-0 hidden md:block"></div>
-            </div>
-
-            <div class="relative flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 md:pr-12 w-full pl-12 md:pl-0 hidden md:block"></div>
-                <div
-                    class="absolute left-0 md:left-1/2 w-10 h-10 bg-blue-600 rounded-full border-4 border-white transform md:-translate-x-1/2 flex items-center justify-center text-white font-bold shadow-md z-10">
-                    8</div>
-                <div class="md:w-1/2 md:pl-12 w-full pl-12 md:pl-0 text-left mt-4 md:mt-0">
-                    <h3 class="text-xl font-bold text-blue-700">8. Field / Online Evaluation</h3>
-                    <span
-                        class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mt-1 mb-3 font-semibold">Minggu
-                        ke-1 – ke-2 September 2026</span>
-                    <ul class="text-gray-600 text-sm space-y-2">
-                        <li><strong>Kesiapan Pihak Terkait:</strong> Agen Statistik, Aparat Desa, dan Pembina bersiap
-                            untuk wawancara langsung/daring (Zoom) oleh Tim BPS RI.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="relative flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 md:pr-12 w-full pl-12 md:pl-0 text-left md:text-right mb-4 md:mb-0">
-                    <h3 class="text-xl font-bold text-blue-700">9. Pleno Akhir Penilaian</h3>
-                    <span
-                        class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mt-1 mb-3 font-semibold">Minggu
-                        ke-2 September 2026</span>
-                    <p class="text-gray-600 text-sm">Proses internal tertutup Tim Penilai BPS RI untuk memutuskan
-                        pemenang. (Tidak ada dokumen yang disiapkan).</p>
-                </div>
-                <div
-                    class="absolute left-0 md:left-1/2 w-10 h-10 bg-blue-600 rounded-full border-4 border-white transform md:-translate-x-1/2 flex items-center justify-center text-white font-bold shadow-md z-10">
-                    9</div>
-                <div class="md:w-1/2 md:pl-12 w-full pl-12 md:pl-0 hidden md:block"></div>
-            </div>
-
-            <div class="relative flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 md:pr-12 w-full pl-12 md:pl-0 hidden md:block"></div>
-                <div
-                    class="absolute left-0 md:left-1/2 w-10 h-10 bg-blue-600 rounded-full border-4 border-white transform md:-translate-x-1/2 flex items-center justify-center text-white font-bold shadow-md z-10">
-                    10</div>
-                <div class="md:w-1/2 md:pl-12 w-full pl-12 md:pl-0 text-left mt-4 md:mt-0">
-                    <h3 class="text-xl font-bold text-blue-700">10. Penganugerahan Desa Cantik</h3>
-                    <span
-                        class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mt-1 mb-3 font-semibold">26
-                        September 2026</span>
-                    <ul class="text-gray-600 text-sm space-y-2">
-                        <li><strong>Kehadiran/Partisipasi:</strong> Desa/Kelurahan, Kabupaten/Kota, dan Provinsi hadir
-                            di Hari Statistik Nasional untuk menerima penghargaan.</li>
-                    </ul>
-                </div>
-            </div>
-
         </div>
 
-        <footer class="mt-20 text-center border-t border-gray-200 pt-6">
-            <p class="text-gray-500 text-sm font-medium">Made with &hearts; by Albert Assidiq</p>
-        </footer>
+        <!-- Tahap 3 -->
+        <div class="timeline-item">
+            <div class="content">
+                <span class="date">Minggu ke-1 Mei – Minggu ke-4 Jul 2026</span>
+                <h2>
+                    <div class="icon-wrapper"><i class="ph ph-chart-line-up"></i></div>
+                    Monitoring Program
+                </h2>
+                <ul>
+                    <li><strong>Update Progres:</strong> Lapor progres dan output 3 desa target utama via Dashboard Monitoring Desa Cantik.</li>
+                    <li><strong>Usulan Tambahan (Opsional):</strong> Siapkan data jika ada pembinaan desa di luar target utama untuk diusulkan ke BPS Pusat.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tahap 4 -->
+        <div class="timeline-item">
+            <div class="content">
+                <span class="date">Minggu ke-1 Jul–Ags & Okt–Nov 2026</span>
+                <h2>
+                    <div class="icon-wrapper"><i class="ph ph-folders"></i></div>
+                    Penyusunan Laporan
+                </h2>
+                <ul>
+                    <li><strong>Laporan Akhir:</strong> Susun Laporan Akhir Kegiatan yang memuat bukti pengelolaan statistik.</li>
+                    <li><strong>Input Sistem:</strong> Masukkan laporan langsung ke CAWI Laporan Akhir Desa Cantik BPS Kabupaten/Kota.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tahap 5 -->
+        <div class="timeline-item">
+            <div class="content">
+                <span class="date">Minggu ke-1 – Minggu ke-2 Ags 2026</span>
+                <h2>
+                    <div class="icon-wrapper"><i class="ph ph-clipboard-text"></i></div>
+                    Penilaian Mandiri
+                </h2>
+                <ul>
+                    <li><strong>LKE Desa/Kelurahan:</strong> Dampingi aparat desa / agen statistik mengisi indikator Penilaian Mandiri di CAWI.</li>
+                    <li><strong>LKE Kabupaten/Kota:</strong> Isi form CAWI Penilaian Mandiri Pembina sejumlah desa binaan.</li>
+                    <li><strong>SK Pembaruan:</strong> Unggah SK terbaru di sistem jika ada pergantian Agen Statistik.</li>
+                    <li><strong>Bukti Dukung Lengkap:</strong> Lengkapi semua bukti sistem untuk nominasi Desa Cantik Terbaik.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tahap 6 -->
+        <div class="timeline-item">
+            <div class="content">
+                <span class="date">Minggu ke-3 Agustus 2026</span>
+                <h2>
+                    <div class="icon-wrapper"><i class="ph ph-shield-check"></i></div>
+                    Verifikasi di Provinsi
+                </h2>
+                <ul>
+                    <li><strong>Finalisasi Submit:</strong> Pastikan seluruh isian penilaian mandiri beserta bukti di CAWI sudah di-submit final (Bobot nilai 5% oleh BPS Provinsi).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tahap 7 -->
+        <div class="timeline-item">
+            <div class="content">
+                <span class="date">Minggu ke-4 Agustus 2026</span>
+                <h2>
+                    <div class="icon-wrapper"><i class="ph ph-desktop"></i></div>
+                    Desk Evaluation
+                </h2>
+                <ul>
+                    <li><strong>Pantau Sistem:</strong> Tim Penilai BPS RI mengevaluasi dokumen (Bobot 75% Desa, 20% Kabupaten dari sistem).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tahap 8 -->
+        <div class="timeline-item">
+            <div class="content">
+                <span class="date">Minggu ke-1 – Minggu ke-2 Sep 2026</span>
+                <h2>
+                    <div class="icon-wrapper"><i class="ph ph-video-camera"></i></div>
+                    Field/Online Evaluation
+                </h2>
+                <ul>
+                    <li><strong>Persiapan Wawancara:</strong> Siapkan Agen Statistik dan pihak desa untuk evaluasi lanjutan BPS RI.</li>
+                    <li><strong>Bukti Fisik/Presentasi:</strong> Sediakan bahan presentasi hasil kerja statistik desa (Bisa online maupun tatap muka).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tahap 9 -->
+        <div class="timeline-item">
+            <div class="content">
+                <span class="date">14 – 26 September 2026</span>
+                <h2>
+                    <div class="icon-wrapper"><i class="ph ph-medal"></i></div>
+                    Pleno Akhir & Penganugerahan
+                </h2>
+                <ul>
+                    <li><strong>Wewenang Pusat:</strong> Penilaian pleno merupakan wewenang Tim BPS Pusat.</li>
+                    <li><strong>Momen HSN:</strong> Penyerahan penghargaan pada peringatan Hari Statistik Nasional (Tidak perlu penyiapan dokumen lapangan lagi).</li>
+                </ul>
+            </div>
+        </div>
     </div>
-</body>
 
+</body>
 </html>
