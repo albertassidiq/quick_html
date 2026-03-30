@@ -466,6 +466,63 @@
                 top: 5px;
             }
         }
+
+        /* Sticky Bottom Navigation */
+        body { padding-bottom: 90px; } /* Prevent content from being hidden by nav */
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(224, 229, 236, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 -5px 20px rgba(163, 177, 198, 0.2);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            gap: 4px;
+            flex: 1;
+            height: 100%;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-item i {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: var(--brand);
+        }
+
+        .nav-item.active i {
+            transform: translateY(-2px);
+            filter: drop-shadow(0px 4px 6px rgba(49, 130, 206, 0.3));
+        }
+
+        .nav-item:hover {
+            color: var(--brand-light);
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -570,13 +627,15 @@
         </div>
     </div>
 
-    <div style="text-align: center; padding: 0 1.5rem 6rem;">
-        <h3 style="color: var(--text-primary); margin-bottom: 0.5rem;">Cek Interaktif LKE</h3>
-        <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 1.5rem; line-height: 1.6;">Akses langsung rincian aspek, indikator, dan poin maksimal LKE Desa Cantik 2026 melalui *dashboard* interaktif.</p>
-        <a href="https://dsrt26.stat2172.com/lke_visualizer.html" class="btn-drive">
-            <i class="ph-bold ph-chart-bar"></i> Buka Visualisasi LKE
+    <nav class="bottom-nav">
+        <a href="https://descan26.stat2172.com/" class="nav-item active">
+            <i class="ph-fill ph-house"></i>
+            <span>Roadmap</span>
         </a>
-    </div>
-
+        <a href="https://descan26.stat2172.com/lke_visualizer.html" class="nav-item">
+            <i class="ph ph-chart-bar"></i>
+            <span>Visualisasi LKE</span>
+        </a>
+    </nav>
 </body>
 </html>

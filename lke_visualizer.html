@@ -342,18 +342,69 @@
             .indicator-box { padding: 1rem; }
             .option-item { flex-direction: column; gap: 8px; align-items: flex-start; }
         }
+
+        /* Sticky Bottom Navigation */
+        body { padding-bottom: 90px; } /* Prevent content from being hidden by nav */
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(224, 229, 236, 0.85); /* Matches --bg with opacity */
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 -5px 20px rgba(163, 177, 198, 0.2);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            gap: 4px;
+            flex: 1;
+            height: 100%;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-item i {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: var(--brand);
+        }
+
+        .nav-item.active i {
+            transform: translateY(-2px);
+            filter: drop-shadow(0px 4px 6px rgba(49, 130, 206, 0.3));
+        }
+
+        .nav-item:hover {
+            color: var(--brand-light);
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="top-nav">
-            <a href="index.html" class="btn-back">
-                <i class="ph-bold ph-arrow-left"></i> Kembali ke Roadmap
-            </a>
-        </div>
-
-        <div class="header">
+        <div class="header" style="margin-top: 1rem;">
             <h1>Visualisasi LKE Desa Cantik</h1>
             <p>Eksplorasi interaktif instrumen Penilaian Mandiri Desa/Kelurahan dan BPS Kabupaten/Kota (Desa Cantik 2026).</p>
         </div>
@@ -582,5 +633,16 @@
             });
         }
     </script>
+
+    <nav class="bottom-nav">
+        <a href="https://descan26.stat2172.com/" class="nav-item">
+            <i class="ph ph-house"></i>
+            <span>Roadmap</span>
+        </a>
+        <a href="https://descan26.stat2172.com/lke_visualizer.html" class="nav-item active">
+            <i class="ph-fill ph-chart-bar"></i>
+            <span>Visualisasi LKE</span>
+        </a>
+    </nav>
 </body>
 </html>
