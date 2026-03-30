@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualisasi LKE Desa Cantik 2026</title>
+    
+    <!-- Open Graph & SEO Meta Tags -->
+    <meta name="description" content="Visualisasi interaktif instrumen Penilaian Desa Cantik 2026 untuk BPS Kabupaten/Kota.">
+    <meta property="og:title" content="Visualisasi LKE Desa Cantik 2026">
+    <meta property="og:description" content="Dashboard interaktif LKE Penilaian Desa Cantik 2026 untuk memantau indikator dan skor maksimal.">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23E0E5EC' stroke='%233182CE' stroke-width='6'/><text y='54%25' x='50%25' dominant-baseline='middle' text-anchor='middle' font-size='42' fill='%2338A169' font-family='Arial, sans-serif' font-weight='bold'>BPS</text></svg>">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <style>
+        :root {
+            /* Neumorphic base color */
+            --bg: #E0E5EC;
+            --text-primary: #2D3748;
+            --text-secondary: #4A5568;
+            --brand: #3182CE;
+            --brand-light: #63B3ED;
+            --success: #38A169;
+            --warning: #ED8936;
+            
+            /* Shadows for depth */
+            --shadow-light: #ffffff;
+            --shadow-dark: #a3b1c6;
+            
+            --glass-grad: linear-gradient(135deg, rgba(255,255,255,0.45), rgba(255,255,255,0.1));
+            --glass-border: rgba(255, 255, 255, 0.6);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(49, 130, 206, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(237, 137, 54, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(72, 187, 120, 0.08) 0%, transparent 50%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        a {
+            color: var(--brand);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: var(--success);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin: 0 0 0.5rem 0;
+            background: linear-gradient(135deg, var(--brand), var(--success));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(163, 177, 198, 0.2);
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: var(--bg);
+            color: var(--brand);
+            font-weight: 600;
+            border-radius: 50px;
+            box-shadow: 
+                5px 5px 10px var(--shadow-dark), 
+                -5px -5px 10px var(--shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            box-shadow: 
+                inset 3px 3px 6px var(--shadow-dark), 
+                inset -3px -3px 6px var(--shadow-light);
+            transform: translateY(1px);
+        }
+
+        .error-msg {
+            text-align: center;
+            color: var(--warning);
+            font-weight: 600;
+            padding: 2rem;
+            background: var(--bg);
+            border-radius: 16px;
+            box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+            display: none;
+        }
+
+        /* LKE Card Styles */
+        .blok-card {
+            background: var(--glass-grad);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 
+                8px 8px 16px rgba(163, 177, 198, 0.4), 
+                -8px -8px 16px rgba(255, 255, 255, 0.8);
+        }
+
+        .blok-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--brand);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(49, 130, 206, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .aspek-title {
+            font-size: 1.2rem;
+            color: var(--success);
+            margin: 1.5rem 0 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .indicator-box {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 
+                inset 3px 3px 6px var(--shadow-dark), 
+                inset -3px -3px 6px var(--shadow-light);
+        }
+
+        .indicator-header {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            display: flex;
+            gap: 10px;
+        }
+
+        .indicator-num {
+            background: var(--brand);
+            color: white;
+            min-width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 0.9rem;
+        }
+
+        .sub-question {
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+            border-left: 3px solid var(--brand-light);
+        }
+
+        .sub-question-title {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: var(--bg);
+            box-shadow: 
+                3px 3px 6px var(--shadow-dark), 
+                -3px -3px 6px var(--shadow-light);
+            transition: transform 0.2s;
+        }
+
+        .option-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .option-score {
+            background: var(--success);
+            color: white;
+            font-weight: 700;
+            min-width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: inset 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .option-score.score-0 { background: #E53E3E; }
+        .option-score.score-1 { background: var(--warning); }
+        .option-score.score-2 { background: var(--brand-light); }
+        .option-score.score-3 { background: var(--brand); }
+        .option-score.score-4 { background: var(--success); }
+
+        .option-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .evidence-box {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            padding: 10px 14px;
+            background: rgba(49, 130, 206, 0.05);
+            border-radius: 8px;
+            border-left: 2px solid var(--brand);
+            color: var(--text-secondary);
+            display: flex;
+            gap: 8px;
+        }
+
+        .evidence-box i {
+            color: var(--brand);
+            margin-top: 2px;
+        }
+
+        /* Loading Skeleton */
+        .skeleton {
+            height: 200px;
+            background: var(--bg);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skeleton::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            100% { left: 100%; }
+        }
+
+        /* Filter Tabs */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 2rem;
+            scrollbar-width: none;
+        }
+        .tabs::-webkit-scrollbar { display: none; }
+
+        .tab-btn {
+            padding: 10px 20px;
+            border: none;
+            background: var(--bg);
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: var(--brand);
+            box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+        }
+
+        @media (max-width: 600px) {
+            .blok-card { padding: 1.2rem; }
+            .indicator-box { padding: 1rem; }
+            .option-item { flex-direction: column; gap: 8px; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="top-nav">
+            <a href="index.html" class="btn-back">
+                <i class="ph-bold ph-arrow-left"></i> Kembali ke Roadmap
+            </a>
+        </div>
+
+        <div class="header">
+            <h1>Visualisasi LKE Desa Cantik</h1>
+            <p>Eksplorasi interaktif instrumen Penilaian Mandiri Desa/Kelurahan dan BPS Kabupaten/Kota (Desa Cantik 2026).</p>
+        </div>
+
+        <div id="tabs-container" class="tabs" style="display: none;">
+            <!-- Tabs injected via JS -->
+        </div>
+
+        <div id="error-msg" class="error-msg">
+            <i class="ph ph-warning-circle" style="font-size: 2rem; display: block; margin-bottom: 10px;"></i>
+            Gagal memuat data LKE. <br>
+            <span style="font-size:0.9rem; font-weight:400;">Jika Anda membuka file ini langsung (file://), browser mungkin memblokir akses file JSON karena kebijakan keamanan CORS. Harap jalankan menggunakan Local Web Server (misal: Live Server di VSCode).</span>
+        </div>
+
+        <div id="lke-container">
+            <div class="skeleton"></div>
+            <div class="skeleton"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchData();
+        });
+
+        async function fetchData() {
+            try {
+                const res = await fetch('lke_data.json');
+                if (!res.ok) throw new Error("Network response was not ok");
+                const rawData = await res.json();
+                processLkeData(rawData);
+            } catch (error) {
+                console.error("Gagal parse data:", error);
+                document.getElementById('error-msg').style.display = 'block';
+                document.getElementById('lke-container').innerHTML = '';
+            }
+        }
+
+        function processLkeData(data) {
+            let parsedBlocks = [];
+            let currentBlock = null;
+            let currentAspek = null;
+            let currentIndicator = null;
+            let currentSubQ = null;
+
+            data.forEach(row => {
+                const f0 = row["INSTRUMENT PENILAIAN MANDIRI DESA/KELURAHAN DAN KABUPATEN/KOTA - DESA CANTIK 2026"];
+                const f1 = row["Unnamed: 1"];
+                const f2 = row["Unnamed: 2"];
+                const f3 = row["Unnamed: 3"];
+                const f4 = row["Unnamed: 4"];
+                const f10 = row["Unnamed: 10"]; // Evidence/Description
+
+                // Deteksi Blok
+                if (typeof f0 === 'string' && f0.toUpperCase().includes("BLOK")) {
+                    currentBlock = { title: f0, items: [] };
+                    parsedBlocks.push(currentBlock);
+                    currentAspek = null;
+                    currentIndicator = null;
+                    return;
+                }
+
+                // Jika belum masuk blok, skip header/metadata
+                if (!currentBlock) return;
+
+                // Deteksi Aspek / Section (Dalam JSON kadang di f0 berupa teks kapital tanpa nomor)
+                if (typeof f0 === 'string' && (f0.toUpperCase().includes("ASPEK") || f0.match(/^[IVX]+\./))) {
+                    currentAspek = { type: 'aspek', title: f0 };
+                    currentBlock.items.push(currentAspek);
+                    currentIndicator = null;
+                    return;
+                }
+
+                // Deteksi Indikator Utama (Nomor di f0)
+                if (typeof f0 === 'number') {
+                    currentIndicator = { type: 'indicator', num: f0, title: f1 || f2, subqs: [] };
+                    currentBlock.items.push(currentIndicator);
+                    currentSubQ = null; // reset subQ
+                    
+                    // Kalau ada jawaban langsung di baris yg sama? (Jarang, tapi handle saja)
+                    if (f3) {
+                         currentSubQ = { label: '', text: f2, options: [], evidence: f10 };
+                         currentSubQ.options.push({ text: f3, score: f4, evidence: f10 });
+                         currentIndicator.subqs.push(currentSubQ);
+                    }
+                    return;
+                }
+
+                // Deteksi Sub-Pertanyaan / Item
+                if (f1 && f2 && !f3) {
+                    currentSubQ = { label: f1, text: f2, options: [], evidence: f10 };
+                    if (currentIndicator) currentIndicator.subqs.push(currentSubQ);
+                    return;
+                }
+
+                // Handle format khusus dimana f1 kosong, f2 ada (sub pertanyaan lanjutan), f3 ada jawaban
+                if (!f1 && f2 && f3) {
+                     currentSubQ = { label: '', text: f2, options: [], evidence: null };
+                     if (currentIndicator) currentIndicator.subqs.push(currentSubQ);
+                     currentSubQ.options.push({ text: f3, score: f4, evidence: f10 });
+                     return;
+                }
+                
+                // Handle subpertanyaan punya label di f1 dan langsung punya jawaban f3
+                if (f1 && f2 && f3) {
+                    currentSubQ = { label: f1, text: f2, options: [], evidence: f10 };
+                    currentSubQ.options.push({ text: f3, score: f4, evidence: f10 });
+                    if (currentIndicator) currentIndicator.subqs.push(currentSubQ);
+                    return;
+                }
+
+                // Opsi Jawaban (f3 terisi, f1 dan f2 kosong)
+                if (!f1 && !f2 && f3) {
+                    if (currentSubQ) {
+                        currentSubQ.options.push({ text: f3, score: f4, evidence: f10 });
+                    }
+                    return;
+                }
+                
+                // Edge case: Jawaban punya label di f1 (e.g. 1, 2, 3) dan text f2 dan jawaban f3
+                if (f1 && f2 && f3 && currentIndicator) {
+                     let sub = { label: f1, text: f2, options: [{text: f3, score: f4, evidence: f10}], evidence: f10 };
+                     currentIndicator.subqs.push(sub);
+                     currentSubQ = sub;
+                }
+
+            });
+
+            renderTabs(parsedBlocks);
+            renderBlocks(parsedBlocks);
+        }
+
+        let stateBlocks = [];
+
+        function renderTabs(blocks) {
+            stateBlocks = blocks;
+            const container = document.getElementById('tabs-container');
+            container.style.display = 'flex';
+            container.innerHTML = `
+                <button class="tab-btn active" onclick="filterBlock('ALL')">Semua Blok</button>
+            `;
+
+            blocks.forEach((b, idx) => {
+                // Shorten tab name
+                let shortName = b.title.split('.')[0]; 
+                container.innerHTML += `<button class="tab-btn" onclick="filterBlock(${idx})">${shortName}</button>`;
+            });
+        }
+
+        window.filterBlock = function(idx) {
+            document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+                 btn.classList.toggle('active', (idx === 'ALL' && i === 0) || (idx !== 'ALL' && i === idx + 1));
+            });
+
+            if (idx === 'ALL') {
+                renderBlocks(stateBlocks);
+            } else {
+                renderBlocks([stateBlocks[idx]]);
+            }
+        }
+
+        function renderBlocks(blocks) {
+            const container = document.getElementById('lke-container');
+            container.innerHTML = '';
+
+            if (blocks.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color:var(--text-secondary);">Tidak ada data untuk ditampilkan.</p>`;
+                return;
+            }
+
+            blocks.forEach(block => {
+                const blockDiv = document.createElement('div');
+                blockDiv.className = 'blok-card';
+                
+                let html = `<h2 class="blok-title"><i class="ph-fill ph-check-square-offset"></i> ${block.title}</h2>`;
+
+                block.items.forEach(item => {
+                    if (item.type === 'aspek') {
+                        html += `<h3 class="aspek-title"><i class="ph-bold ph-caret-right"></i> ${item.title}</h3>`;
+                    } else if (item.type === 'indicator') {
+                        html += `<div class="indicator-box">
+                                    <div class="indicator-header">
+                                        <div class="indicator-num">${item.num}</div>
+                                        <div>${item.title}</div>
+                                    </div>`;
+                        
+                        item.subqs.forEach(sub => {
+                            let labelStr = sub.label ? `<strong>${sub.label}.</strong> ` : '';
+                            html += `<div class="sub-question">
+                                        <div class="sub-question-title">${labelStr} ${sub.text}</div>`;
+                            
+                            if (sub.evidence && !sub.options.some(o => o.evidence === sub.evidence)) {
+                                html += `<div class="evidence-box"><i class="ph-fill ph-info"></i> <div>${sub.evidence.replace(/\n/g, '<br>')}</div></div>`;
+                            }
+
+                            if (sub.options.length > 0) {
+                                html += `<ul class="options-list">`;
+                                sub.options.forEach(opt => {
+                                    let score = opt.score !== null && opt.score !== undefined ? opt.score : '-';
+                                    let scoreClass = typeof score === 'number' ? `score-${score}` : '';
+                                    if(score === '-') scoreClass = 'score-0';
+
+                                    html += `<li class="option-item">
+                                                <div class="option-score ${scoreClass}">${score}</div>
+                                                <div class="option-text">
+                                                    ${opt.text}`;
+                                    
+                                    if (opt.evidence) {
+                                         html += `<div class="evidence-box" style="margin-top: 8px;"><i class="ph-bold ph-file-text"></i> <div>${opt.evidence.replace(/\n/g, '<br>')}</div></div>`;
+                                    }
+
+                                    html += `   </div>
+                                             </li>`;
+                                });
+                                html += `</ul>`;
+                            }
+                            html += `</div>`; // end sub-question
+                        });
+
+                        html += `</div>`; // end indicator-box
+                    }
+                });
+
+                blockDiv.innerHTML = html;
+                container.appendChild(blockDiv);
+            });
+        }
+    </script>
+</body>
+</html>
