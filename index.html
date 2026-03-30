@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roadmap Pembina Desa Cantik 2026</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23E0E5EC' stroke='%233182CE' stroke-width='6'/><text y='54%25' x='50%25' dominant-baseline='middle' text-anchor='middle' font-size='42' fill='%2338A169' font-family='Arial, sans-serif' font-weight='bold'>BPS</text></svg>">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
     <style>
         :root {
             /* Neumorphic base color */
@@ -34,7 +40,7 @@
             font-family: 'Outfit', sans-serif;
             background-color: var(--bg);
             color: var(--text-primary);
-            /* Add colorful soft blobs for the glass effect to interact with */
+            /* Colorful soft blobs with Orange and Green replacing Pink/Purple */
             background-image: 
                 radial-gradient(circle at 10% 10%, rgba(49, 130, 206, 0.15) 0%, transparent 40%),
                 radial-gradient(circle at 90% 90%, rgba(237, 137, 54, 0.12) 0%, transparent 40%),
@@ -42,6 +48,22 @@
             background-attachment: fixed;
             min-height: 100vh;
             overflow-x: hidden;
+        }
+
+        /* Link Styling */
+        a {
+            color: var(--brand);
+            text-decoration: none;
+            font-weight: 500;
+            word-break: break-all; /* Ensures long URLs fit inside the card */
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+        
+        a:hover {
+            color: #38A169;
+            text-decoration: underline;
         }
 
         /* Header Styling */
@@ -276,6 +298,17 @@
             font-weight: 600;
         }
 
+        /* Minor italic note */
+        .content .note {
+            display: block;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--shadow-dark);
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
         /* Floating animation on load */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(40px); }
@@ -353,10 +386,10 @@
                     Sosialisasi & Pembinaan Aparat
                 </h2>
                 <ul>
-                    <li><strong>SK Penunjukan:</strong> Pastikan adanya Keputusan Kepala Desa/Lurah terkait penunjukan Agen Statistik.</li>
-                    <li><strong>Materi Pembinaan:</strong> Edukasi aparat mengenai Data Tunggal Sosial Ekonomi Nasional (DTSEN) & Sensus Ekonomi 2026.</li>
-                    <li><strong>Dokumentasi:</strong> Kumpulkan undangan, daftar hadir, notulen, dan foto kegiatan.</li>
-                    <li><strong>Input Sistem:</strong> Isi CAWI Laporan Koordinasi dan CAWI Input Identifikasi Kebutuhan Desa.</li>
+                    <li><strong>SK Penunjukan Agen Statistik:</strong> Lo harus memastikan adanya Keputusan Kepala Desa/Lurah terkait penunjukan Agen Statistik di desa/kelurahan tersebut.</li>
+                    <li><strong>Materi Pembinaan:</strong> Siapkan materi sosialisasi, khususnya untuk memberikan pemahaman kepada aparat desa mengenai Data Tunggal Sosial Ekonomi Nasional (DTSEN) dan kegiatan Sensus Ekonomi 2026 (Materi SE2026: <a href="https://sensus.bps.go.id/se2026/" target="_blank">https://sensus.bps.go.id/se2026/</a>).</li>
+                    <li><strong>Dokumentasi:</strong> Kumpulkan bukti dukung kegiatan seperti undangan, daftar hadir, notulen, dan foto kegiatan pencanangan/sosialisasi.</li>
+                    <li><strong>Input Sistem:</strong> Lo harus mengisi CAWI Laporan Koordinasi/Sosialisasi/Pencanangan (Link LKE: <a href="http://s.bps.go.id/LKE_DesaCantik2026_Pembina" target="_blank">http://s.bps.go.id/LKE_DesaCantik2026_Pembina</a>) dan CAWI Input Identifikasi Kebutuhan Desa (Kuesioner Identifikasi: <a href="http://s.bps.go.id/Kuesioner-IdentifikasiDescan2026" target="_blank">http://s.bps.go.id/Kuesioner-IdentifikasiDescan2026</a>).</li>
                 </ul>
             </div>
         </div>
@@ -370,11 +403,11 @@
                     Pendampingan Statistik
                 </h2>
                 <ul>
-                    <li><strong>Metadata & Standar Data:</strong> Hasilkan naskah rancangan metadata variabel yang dikumpulkan.</li>
-                    <li><strong>Sistem Pengumpulan:</strong> Siapkan SOP pengumpulan data primer/sekunder dan instrumen kuesioner.</li>
-                    <li><strong>Output Data:</strong> Buat rancangan tabel, grafik, maupun kajian/analisis.</li>
-                    <li><strong>Produk Diseminasi:</strong> Hasilkan Infografis, Profil Desa, atau konten data untuk website.</li>
-                    <li><strong>Evaluasi:</strong> Susun laporan hasil evaluasi pendataan di lapangan.</li>
+                    <li><strong>Metadata dan Standar Data:</strong> Hasilkan naskah rancangan metadata dan standar data untuk variabel yang akan dikumpulkan desa (Bisa merujuk ke <a href="https://indah.bps.go.id" target="_blank">https://indah.bps.go.id</a> atau SIRUSA: <a href="https://sirusa.web.bps.go.id" target="_blank">https://sirusa.web.bps.go.id</a>).</li>
+                    <li><strong>Sistem Pengumpulan Data:</strong> Siapkan SOP pengumpulan data primer/sekunder beserta rancangan kuesioner atau instrumen pendataannya (Untuk aplikasi CAPI/Web bisa menggunakan FASIH: <a href="https://fasih-sm.bps.go.id" target="_blank">https://fasih-sm.bps.go.id</a>).</li>
+                    <li><strong>Output Data:</strong> Buat daftar rancangan tabel, grafik, maupun kajian/analisis yang akan dihasilkan.</li>
+                    <li><strong>Produk Diseminasi:</strong> Hasilkan produk statistik berupa Infografis, Profil/Monografi Desa, atau konten data untuk diunggah di website desa.</li>
+                    <li><strong>Evaluasi Pendataan:</strong> Susun laporan hasil evaluasi atau inventarisasi kendala pendataan di lapangan.</li>
                 </ul>
             </div>
         </div>
@@ -388,8 +421,8 @@
                     Monitoring Program
                 </h2>
                 <ul>
-                    <li><strong>Update Progres:</strong> Lapor progres dan output 3 desa target utama via Dashboard Monitoring Desa Cantik.</li>
-                    <li><strong>Usulan Tambahan (Opsional):</strong> Siapkan data jika ada pembinaan desa di luar target utama untuk diusulkan ke BPS Pusat.</li>
+                    <li><strong>Update Progres:</strong> Lakukan pelaporan progres dan output hasil pembinaan pada 3 (tiga) desa target utama di wilayah lo melalui Dashboard Monitoring Desa Cantik (Akses via SSO & VPN BPS: <a href="https://indah-dev.bps.go.id/desa-cantik/" target="_blank">https://indah-dev.bps.go.id/desa-cantik/</a>).</li>
+                    <li><strong>Usulan Desa Tambahan (Opsional):</strong> Jika lo melakukan pembinaan di desa lain di luar target utama, siapkan data desa tambahan tersebut untuk diusulkan ke BPS Pusat melalui dashboard tersebut.</li>
                 </ul>
             </div>
         </div>
@@ -403,8 +436,8 @@
                     Penyusunan Laporan
                 </h2>
                 <ul>
-                    <li><strong>Laporan Akhir:</strong> Susun Laporan Akhir Kegiatan yang memuat bukti pengelolaan statistik.</li>
-                    <li><strong>Input Sistem:</strong> Masukkan laporan langsung ke CAWI Laporan Akhir Desa Cantik BPS Kabupaten/Kota.</li>
+                    <li><strong>Laporan Akhir:</strong> Susun Laporan Akhir Kegiatan Desa Cantik BPS Kabupaten/Kota yang memuat bukti terlaksananya pengelolaan statistik di desa/kelurahan binaan (Template Laporan BPS Kab/Kota: <a href="http://s.bps.go.id/Template_LaporanDescan_Kako2026" target="_blank">http://s.bps.go.id/Template_LaporanDescan_Kako2026</a>).</li>
+                    <li><strong>Input Sistem:</strong> Laporan ini diinput langsung ke dalam form CAWI Laporan Akhir Desa Cantik BPS Kabupaten/Kota.</li>
                 </ul>
             </div>
         </div>
@@ -418,10 +451,10 @@
                     Penilaian Mandiri
                 </h2>
                 <ul>
-                    <li><strong>LKE Desa/Kelurahan:</strong> Dampingi aparat desa / agen statistik mengisi indikator Penilaian Mandiri di CAWI.</li>
-                    <li><strong>LKE Kabupaten/Kota:</strong> Isi form CAWI Penilaian Mandiri Pembina sejumlah desa binaan.</li>
-                    <li><strong>SK Pembaruan:</strong> Unggah SK terbaru di sistem jika ada pergantian Agen Statistik.</li>
-                    <li><strong>Bukti Dukung Lengkap:</strong> Lengkapi semua bukti sistem untuk nominasi Desa Cantik Terbaik.</li>
+                    <li><strong>LKE Desa/Kelurahan:</strong> Dampingi aparat desa atau agen statistik untuk mengisi indikator Penilaian Mandiri Desa/Kelurahan di CAWI.</li>
+                    <li><strong>LKE Kabupaten/Kota:</strong> Lo wajib mengisi form CAWI Penilaian Mandiri BPS Kabupaten/Kota sejumlah desa binaan (diakses melalui link khusus LKE Pembina: <a href="http://s.bps.go.id/LKE_DesaCantik2026_Pembina" target="_blank">http://s.bps.go.id/LKE_DesaCantik2026_Pembina</a>).</li>
+                    <li><strong>SK Pembaruan:</strong> Pastikan untuk mengunggah SK terbaru jika sewaktu-waktu terjadi pergantian Agen Statistik di desa tersebut.</li>
+                    <li><strong>Bukti Dukung Lengkap:</strong> Lengkapi semua bukti kegiatan ke sistem jika desa tersebut diajukan menjadi nominasi Desa Cantik Terbaik.</li>
                 </ul>
             </div>
         </div>
@@ -435,7 +468,7 @@
                     Verifikasi di Provinsi
                 </h2>
                 <ul>
-                    <li><strong>Finalisasi Submit:</strong> Pastikan seluruh isian penilaian mandiri beserta bukti di CAWI sudah di-submit final (Bobot nilai 5% oleh BPS Provinsi).</li>
+                    <li><strong>Finalisasi Submit:</strong> Pada tahap ini tidak ada dokumen baru. Lo hanya perlu memastikan bahwa seluruh isian penilaian mandiri beserta bukti dukungnya di CAWI sudah di-submit secara final, karena BPS Provinsi akan memeriksa kelayakannya dan memberi bobot nilai sebesar 5%.</li>
                 </ul>
             </div>
         </div>
@@ -449,7 +482,7 @@
                     Desk Evaluation
                 </h2>
                 <ul>
-                    <li><strong>Pantau Sistem:</strong> Tim Penilai BPS RI mengevaluasi dokumen (Bobot 75% Desa, 20% Kabupaten dari sistem).</li>
+                    <li><strong>Pantau Kesiapan:</strong> Sama seperti tahap verifikasi, tugas lo adalah memantau kesiapan sistem. Tim Penilai BPS RI akan melakukan evaluasi dokumen dengan bobot penentu utama: 75% dari Penilaian Mandiri Desa/Kelurahan dan 20% dari Penilaian Mandiri Kabupaten/Kota yang sudah lo kerjakan.</li>
                 </ul>
             </div>
         </div>
@@ -463,8 +496,8 @@
                     Field/Online Evaluation
                 </h2>
                 <ul>
-                    <li><strong>Persiapan Wawancara:</strong> Siapkan Agen Statistik dan pihak desa untuk evaluasi lanjutan BPS RI.</li>
-                    <li><strong>Bukti Fisik/Presentasi:</strong> Sediakan bahan presentasi hasil kerja statistik desa (Bisa online maupun tatap muka).</li>
+                    <li><strong>Persiapan Wawancara:</strong> Siapkan Agen Statistik dan pihak desa untuk diwawancarai atau mengikuti evaluasi lanjutan dari Tim Penilai BPS RI.</li>
+                    <li><strong>Bukti Fisik/Presentasi:</strong> Sediakan bahan presentasi atau kesiapan untuk menunjukkan hasil kerja (sistem/publikasi statistik desa) secara langsung. Penilaian bisa berjalan secara tatap muka (jika ada anggaran) atau secara online (Zoom).</li>
                 </ul>
             </div>
         </div>
@@ -472,15 +505,17 @@
         <!-- Tahap 9 -->
         <div class="timeline-item">
             <div class="content">
-                <span class="date">14 – 26 September 2026</span>
+                <span class="date">Sep 2026 (Puncak HSN 26 Sep)</span>
                 <h2>
                     <div class="icon-wrapper"><i class="ph ph-medal"></i></div>
                     Pleno Akhir & Penganugerahan
                 </h2>
                 <ul>
-                    <li><strong>Wewenang Pusat:</strong> Penilaian pleno merupakan wewenang Tim BPS Pusat.</li>
-                    <li><strong>Momen HSN:</strong> Penyerahan penghargaan pada peringatan Hari Statistik Nasional (Tidak perlu penyiapan dokumen lapangan lagi).</li>
+                    <li><strong>Wewenang Pusat:</strong> Dua tahap ini merupakan wewenang internal penilaian akhir Tim BPS Pusat dan penyerahan penghargaan pada Hari Statistik Nasional. Lo tidak perlu menyiapkan dokumen administratif apa pun di tahap penutup ini.</li>
                 </ul>
+                <span class="note">
+                    (Sebagai tambahan, peta sebaran dan output hasil pembinaan nantinya dapat diakses secara publik di Website Desa Cantik: <a href="https://indah-frontend-sdi-dev.apps.bps.go.id/desa-cantik" target="_blank">https://indah-frontend-sdi-dev.apps.bps.go.id/desa-cantik</a>)
+                </span>
             </div>
         </div>
     </div>
